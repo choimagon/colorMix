@@ -41,7 +41,7 @@ body {
     .label {
       margin-top: 10px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 20px;
     }
 
     .symbol {
@@ -90,8 +90,8 @@ body {
 
     .history-title {
       font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 10px;
+      font-size: 21px;
+      margin-bottom: 9px;
     }
 
     .history-item {
