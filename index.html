@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>색의 혼합</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>어떤 색이 될까요?</h1>
+  <button class="reset-btn" id="resetBtn">색 지우기</button>
+  <br>
+
+  <div class="row">
+    <div class="circle-container">
+      <div class="circle" id="circle1"></div>
+      <div class="label">색 1</div>
+    </div>
+    <div class="symbol">+</div>
+    <div class="circle-container">
+      <div class="circle" id="circle2"></div>
+      <div class="label">색 2</div>
+    </div>
+    <div class="symbol">=</div>
+    <div class="circle-container">
+      <div class="circle" id="circle3"></div>
+      <div class="label">결과</div>
+    </div>
+  </div>
+
+  <div class="palette" id="palette"></div>
+
+  <div class="history-container" id="historyContainer">
+    <div class="history-title">지금까지 섞은 색</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
