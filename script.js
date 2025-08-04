@@ -160,34 +160,29 @@ function rybToRgb(r, y, b) {
 }
 
 // ---- 실제 색 혼합 함수 (RYB 평균) ----
+const colorMixLUT = {
+  '#0000FF+#FFFF00': '#00AA00', // 초록
+  '#FF0000+#FFFF00': '#FFA500', // 주황
+  '#00FFFF+#FFFF00': '#90EE90', // 연두
+};
 
 function mixColors(c1, c2) {
+  const key = `${c1.toUpperCase()}+${c2.toUpperCase()}`;
+  const reverseKey = `${c2.toUpperCase()}+${c1.toUpperCase()}`;
+  if (colorMixLUT[key]) return colorMixLUT[key];
+  if (colorMixLUT[reverseKey]) return colorMixLUT[reverseKey];
+
+  // fallback to CMY 혼합
   const rgb1 = hexToRgb(c1);
   const rgb2 = hexToRgb(c2);
 
-  // RYB 변환 및 평균
-  const ryb1 = rgbToRyb(...rgb1);
-  const ryb2 = rgbToRyb(...rgb2);
-  const mixedRyb = [
-    (ryb1[0] + ryb2[0]) / 2,
-    (ryb1[1] + ryb2[1]) / 2,
-    (ryb1[2] + ryb2[2]) / 2
+  const cmy1 = rgb1.map(v => 255 - v);
+  const cmy2 = rgb2.map(v => 255 - v);
+  const mixedCmy = [
+    (cmy1[0] + cmy2[0]) / 2,
+    (cmy1[1] + cmy2[1]) / 2,
+    (cmy1[2] + cmy2[2]) / 2
   ];
-
-  // RYB → RGB
-  let [r, g, b] = rybToRgb(...mixedRyb);
-
-  // ✅ 밝기 보정
-  const brightness1 = (rgb1[0] + rgb1[1] + rgb1[2]) / 3;
-  const brightness2 = (rgb2[0] + rgb2[1] + rgb2[2]) / 3;
-  const targetBrightness = (brightness1 + brightness2) / 2;
-
-  const currentBrightness = (r + g + b) / 3;
-  const factor = currentBrightness === 0 ? 1 : targetBrightness / currentBrightness;
-
-  r *= factor;
-  g *= factor;
-  b *= factor;
-
-  return rgbToHex([r, g, b]);
+  const mixedRgb = mixedCmy.map(v => 255 - v);
+  return rgbToHex(mixedRgb);
 }
